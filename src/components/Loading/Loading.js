@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./Loading.css";
 
 function Loading({ processing, error }) {
   return (
