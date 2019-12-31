@@ -1,24 +1,24 @@
 import axios from "axios";
-export const GET_SERIES_VIDEO_REQUEST_SUCCESS =
-  "GET_SERIES_VIDEO_REQUEST_SUCCESS";
-export const GET_SERIES_VIDEO_REQUEST_FAILURE =
-  "GET_SERIES_VIDEO_REQUEST_FAILURE";
+export const SERIES_VIDEO_REQUEST = "SERIES_VIDEO_REQUEST";
+export const SERIES_VIDEO_REQUEST_SUCCESS = "SERIES_VIDEO_REQUEST_SUCCESS";
+export const SERIES_VIDEO_REQUEST_FAILURE = "SERIES_VIDEO_REQUEST_FAILURE";
 
 export const getSeriesVideoRequest = id => {
-  const seriedId = id;
+  const seriesId = id;
   return async dispatch => {
+    dispatch({ type: SERIES_VIDEO_REQUEST });
     try {
       const seriesVideoRequest = await axios.get(
-        `http://localhost:9001/series-videos?id=${seriedId}`
+        `http://localhost:9001/series-videos?id=${seriesId}`
       );
       dispatch({
-        type: GET_SERIES_VIDEO_REQUEST_SUCCESS,
+        type: SERIES_VIDEO_REQUEST_SUCCESS,
         payload: seriesVideoRequest.data
       });
     } catch (error) {
       dispatch({
-        type: GET_SERIES_VIDEO_REQUEST_FAILURE,
-        payload: error
+        type: SERIES_VIDEO_REQUEST_FAILURE,
+        error: error
       });
     }
   };

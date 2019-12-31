@@ -1,18 +1,23 @@
 import {
-  GET_SERIES_VIDEO_REQUEST_SUCCESS,
-  GET_SERIES_VIDEO_REQUEST_FAILURE
+  SERIES_VIDEO_REQUEST,
+  SERIES_VIDEO_REQUEST_SUCCESS,
+  SERIES_VIDEO_REQUEST_FAILURE
 } from "../actions/index";
 
-const initialState = {};
+const initialState = { isLoading: false };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_SERIES_VIDEO_REQUEST_SUCCESS:
-      return { ...state, ...action.payload };
-    case GET_SERIES_VIDEO_REQUEST_FAILURE:
+    case SERIES_VIDEO_REQUEST:
+      return { ...state, isLoading: true };
+    case SERIES_VIDEO_REQUEST_SUCCESS:
+      return { ...state, ...action.payload, isLoading: false, error: null };
+    case SERIES_VIDEO_REQUEST_FAILURE:
       return {
-        error: action.payload.error
+        error: action.error,
+        isLoading: false
       };
+
     default:
       return state;
   }
