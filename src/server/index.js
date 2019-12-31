@@ -22,7 +22,7 @@ app.get("/series-videos", async (req, res, next) => {
   if (!seriesId)
     return next({
       status: 400,
-      message: "Series id is required, please enter valide input."
+      message: "Series id is required, please enter valid input."
     });
   try {
     const nodeData = await axios.get(
@@ -40,10 +40,11 @@ app.get("/series-videos", async (req, res, next) => {
 
     if (seriesEpisodesList && seriesEpisodesList.length) {
       seriesEpisodesList.map(ep => {
-        const { title, episode } = ep;
+        const { title, episode, id } = ep;
         const basicEpisode = {
           episodeTitle: title,
-          episodeNumber: episode
+          episodeNumber: episode,
+          episodeId: id
         };
         response.episodeList.push(basicEpisode);
       });
@@ -60,10 +61,12 @@ app.listen(port, () =>
 
 app.use((err, req, res, next) => {
   res.status(err.status).json({ error: err });
+  next();
 });
 /**
  * Example node response from https://brooklyn.gaia.com/node/[:nodeId]
  */
+
 const exampleNodeData = {
   fields: {
     body: [
